@@ -7,8 +7,6 @@ type Props = {
 };
 
 export const NewMovie: React.FC<Props> = ({ onAdd }) => {
-  // Increase the count after successful form submission
-  // to reset touched status of all the `Field`s
   const [count, setCount] = useState(1);
 
   const [title, setTitle] = useState('');
@@ -20,7 +18,10 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
   const newMovie: Movie = { title, description, imdbId, imdbUrl, imgUrl };
 
   const isReady: boolean =
-    !title.trim() || !imgUrl.trim() || !imdbUrl.trim() || !imdbId.trim();
+    title.trim() === '' ||
+    imgUrl.trim() === '' ||
+    imdbUrl.trim() === '' ||
+    imdbId.trim() === '';
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,9 +47,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
         name="title"
         label="Title"
         value={title}
-        onChange={changeEvent => {
-          setTitle(changeEvent);
-        }}
+        onChange={setTitle}
         required
       />
 
@@ -56,18 +55,14 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
         name="description"
         label="Description"
         value={description}
-        onChange={changeEvent => {
-          setDescription(changeEvent);
-        }}
+        onChange={setDescription}
       />
 
       <TextField
         name="imgUrl"
         label="Image URL"
         value={imgUrl}
-        onChange={changeEvent => {
-          setImgUrl(changeEvent);
-        }}
+        onChange={setImgUrl}
         required
       />
 
@@ -75,9 +70,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
         name="imdbUrl"
         label="Imdb URL"
         value={imdbUrl}
-        onChange={changeEvent => {
-          setImdbUrl(changeEvent);
-        }}
+        onChange={setImdbUrl}
         required
       />
 
@@ -85,9 +78,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
         name="imdbId"
         label="Imdb ID"
         value={imdbId}
-        onChange={changeEvent => {
-          setImdbId(changeEvent);
-        }}
+        onChange={setImdbId}
         required
       />
 
